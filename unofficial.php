@@ -2,15 +2,14 @@
 // these first ones are configured, not available in the official.fm feed
 $source_user_id = '113174';  //user_id at official.fm whose tracks we want
 $my_title = 'The Waiting Room'; // plain text
-$my_description = 'We are a New Music Radio Show based/produced in Cardiff, Wales, UK & syndicated worldwide via HoundstoothRadio.com, ErrorFM.com/Music, RadioPhoenix.org, & ThisIsFakeDIY.com/Radio. 
-Podcast available every Friday.'; // plain text
+$my_description = 'We are a New Music Radio Show based/produced in Cardiff, Wales, UK and syndicated worldwide via HoundstoothRadio.com, ErrorFM.com/Music, RadioPhoenix.org, and ThisIsFakeDIY.com/Radio. Podcast available every Friday.'; // plain text
 $my_link = 'http://twrhq.official.fm/'; 
+$my_feed_url = 'http://johneckman.com/uo/feed.xml'; //url for the feed output
 $itunes_subtitle = 'New Music Radio Show';
 $itunes_author = 'The Waiting Room';
 $itunes_owner_name = 'One Half of Drunk Country';
-$itunes_owner_email = '@twrhq';
-$itunes_summary = 'We are a New Music Radio Show based/produced in Cardiff, Wales, UK & syndicated worldwide via HoundstoothRadio.com, ErrorFM.com/Music, RadioPhoenix.org, & ThisIsFakeDIY.com/Radio. 
-Podcast available every Friday.'; // these are all plain text
+$itunes_owner_email = 'dc@twrhq.com';
+$itunes_summary = 'We are a New Music Radio Show based/produced in Cardiff, Wales, UK and syndicated worldwide via HoundstoothRadio.com, ErrorFM.com/Music, RadioPhoenix.org, and ThisIsFakeDIY.com/Radio.  Podcast available every Friday.'; // these are all plain text
 $itunes_image = 'http://cdn.official.fm/user_avatars/113/113174_large.jpg'; // url
 $itunes_category = 'Music';
 
@@ -60,7 +59,8 @@ $my_pages = $rs[pages]; // how many pages of results
 /* write out the outer shell, channel, globals */ 
 $now = date("D, d M Y H:i:s T");
 $output = "<?xml version=\"1.0\"?>
-	<rss version=\"2.0\" xmlns:itunes=\"http://www.itunes.com/dtds/podcast-1.0.dtd\" version=\"2.0\">	
+	<rss version=\"2.0\" xmlns:itunes=\"http://www.itunes.com/dtds/podcast-1.0.dtd\"
+		 xmlns='http://www.w3.org/2005/Atom'>	
 	<channel>
 		<title>$my_title</title>
 		<link>$my_link</link>
@@ -126,8 +126,12 @@ if (($my_pages) && ($my_pages > 1)) {
 	}
 }
 
+/* seems like we're getting the closing footer too early */
+sleep(15); 
+
 /* and output the closing footer */
 $output .= "
+	<atom:link href=\"$my_feed_url\" rel=\"self\" type=\"application/rss+xml\" /> 
 	</channel>
 </rss>
 ";
