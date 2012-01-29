@@ -12,6 +12,7 @@
 
  Modified by John Eckman to use curlGet rather than fopen to get rss
    for hosts which have curl, but don't allow fopen on remote files
+ Modified further to get "pages" field at channel level. 
   
  ----------------------------------------------------------------------
  LICENSE
@@ -42,7 +43,7 @@ class lastRSS {
     var $default_cp = 'UTF-8';
     var $CDATA = 'nochange';
     var $cp = '';
-    var $items_limit = 1;
+    var $items_limit = 100;
     var $stripHTML = False;
     var $date_format = '';
 	var $cache_dir = 'temp';
@@ -50,7 +51,7 @@ class lastRSS {
     // -------------------------------------------------------------------
     // Private variables
     // -------------------------------------------------------------------
-    var $channeltags = array ('title', 'link', 'description', 'language', 'copyright', 'managingEditor', 'webMaster', 'lastBuildDate', 'rating', 'docs');
+    var $channeltags = array ('title', 'link', 'description', 'language', 'copyright', 'managingEditor', 'webMaster', 'lastBuildDate', 'rating', 'docs','pages');
     var $itemtags = array('title', 'link', 'description', 'author', 'category', 'comments', 'enclosure', 'guid', 'pubDate', 'source');
     var $imagetags = array('title', 'url', 'link', 'width', 'height');
     var $textinputtags = array('title', 'description', 'name', 'link');
