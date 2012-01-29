@@ -1,4 +1,20 @@
 <?php 
+// these first ones are configured, not available in the official.fm feed
+$source_user_id = '113174';  //user_id at official.fm whose tracks we want
+$my_title = 'The Waiting Room'; // plain text
+$my_description = 'We are a New Music Radio Show based/produced in Cardiff, Wales, UK & syndicated worldwide via HoundstoothRadio.com, ErrorFM.com/Music, RadioPhoenix.org, & ThisIsFakeDIY.com/Radio. 
+Podcast available every Friday.'; // plain text
+$my_link = 'http://twrhq.official.fm/'; 
+$itunes_subtitle = 'New Music Radio Show';
+$itunes_author = 'The Waiting Room';
+$itunes_owner_name = 'One Half of Drunk Country';
+$itunes_owner_email = '@twrhq';
+$itunes_summary = 'We are a New Music Radio Show based/produced in Cardiff, Wales, UK & syndicated worldwide via HoundstoothRadio.com, ErrorFM.com/Music, RadioPhoenix.org, & ThisIsFakeDIY.com/Radio. 
+Podcast available every Friday.'; // these are all plain text
+$itunes_image = 'http://cdn.official.fm/user_avatars/113/113174_large.jpg'; // url
+$itunes_category = 'Music';
+
+
 /*
  ======================================================================
  UnOfficial.fm Feed
@@ -6,12 +22,6 @@
  Take an Official.fm tracks feed and turn it into a usable RSS feed
  with proper enclosures.  
 
- Configure the portion at the top of the script, then run
- on a cron job so it outputs to feed.xml
- 
- Point podcast subscribers to feed.xml - set your cron job for the 
- update frequency desired. 
- 
  ----------------------------------------------------------------------
  LICENSE
 
@@ -30,12 +40,6 @@
 */
 
 
-// these first ones are configured, not available in the official.fm feed
-$source_user_id = '113174';  //user_id at official.fm whose tracks we want
-$my_title = 'The Waiting Room'; 
-$my_description = 'We are a New Music Radio Show based/produced in Cardiff, Wales, UK & syndicated worldwide via HoundstoothRadio.com, ErrorFM.com/Music, RadioPhoenix.org, & ThisIsFakeDIY.com/Radio. 
-Podcast available every Friday.';
-$my_link = 'http://twrhq.official.fm/'; 
 
 
 /* nothing to configure below here */ 
@@ -56,13 +60,23 @@ $my_pages = $rs[pages]; // how many pages of results
 /* write out the outer shell, channel, globals */ 
 $now = date("D, d M Y H:i:s T");
 $output = "<?xml version=\"1.0\"?>
-	<rss version=\"2.0\">
+	<rss version=\"2.0\" xmlns:itunes=\"http://www.itunes.com/dtds/podcast-1.0.dtd\" version=\"2.0\">	
 	<channel>
-		<title><![CDATA[$my_title]]></title>
+		<title>$my_title</title>
 		<link>$my_link</link>
-		<description><![CDATA[$my_description]]></description>
+		<itunes:subtitle>$itunes_subtitle</itunes:subtitle>
+		<itunes:author>$itunes_author</itunes:author>
+		<itunes:summary>$itunes_summary</itunes:summary>
+		<description>$my_description</description>
+		<itunes:owner>
+			<itunes:name>$itunes_owner_name</itunes:name>
+			<itunes:email>$itunes_owner_email</itunes:email>
+		</itunes:owner>
+		<itunes:image href=\"$itunes_image\" />
+		<itunes:category text=\"$itunes_category\"/>
 		<language>en-us</language>
 		<lastBuildDate>$now</lastBuildDate>
+		
 		";
 
 /* now get the info on each item in the feed
@@ -80,11 +94,15 @@ if (($my_pages) && ($my_pages > 1)) {
 			$item_url = get_location($item[link] .'/download');
 			$item_size = get_size($item_url);
 			$output .= "<item>
+			<itunes:author>$itunes_author</itunes:author>
+			<itunes:subtitle>$item[description]</itunes:subtitle>
+			<itunes:summary>$item[description]</itunes:summary>
 			<title>$item[title]</title>
 			<link>$item[link]</link>
 			<description>$item[description]</description>
 			<pubDate>$item[pubDate]</pubDate>
 			<enclosure url=\"$item_url\" length=\"$item_size\" type=\"audio/mpeg\" />
+			<guid>$item_url</guid>
 		</item>
 		";
 		}
@@ -94,11 +112,15 @@ if (($my_pages) && ($my_pages > 1)) {
 		$item_url = get_location($item[link] .'/download');
 		$item_size = get_size($item_url);
 		$output .= "<item>
+			<itunes:author>$itunes_author</itunes:author>
+			<itunes:subtitle>$item[description]</itunes:subtitle>
+			<itunes:summary>$item[description]</itunes:summary>
 			<title>$item[title]</title>
 			<link>$item[link]</link>
 			<description>$item[description]</description>
 			<pubDate>$item[pubDate]</pubDate>
 			<enclosure url=\"$item_url\" length=\"$item_size\" type=\"audio/mpeg\" />
+			<guid>$item_url</guid>
 		</item>
 		";
 	}
