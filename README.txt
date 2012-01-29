@@ -17,7 +17,12 @@ That should output RSS directly to the screen.
 
 Once that's working well, configure a cron job to output the rss to a file:
 
-wget http://example.com/unofficial.php -O feed.xml 
+For example, my crontab has this line:
+
+* 3 * * * wget http://example.com/dir/official.php -O ~/example.com/dir/feed.xml
+
+(Your mileage will vary, as you'll need to set the right path to your php
+file and the right path to the directory where it can write). 
 
 Then configure podcatcher clients to point at the feed.xml
 
