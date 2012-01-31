@@ -60,7 +60,7 @@ $my_pages = $rs[pages]; // how many pages of results
 $now = date("D, d M Y H:i:s T");
 $output = "<?xml version=\"1.0\"?>
 	<rss version=\"2.0\" xmlns:itunes=\"http://www.itunes.com/dtds/podcast-1.0.dtd\"
-		 xmlns='http://www.w3.org/2005/Atom'>	
+		 xmlns:atom=\"http://www.w3.org/2005/Atom\">	
 	<channel>
 		<title>$my_title</title>
 		<link>$my_link</link>
