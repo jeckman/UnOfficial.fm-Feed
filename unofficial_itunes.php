@@ -50,6 +50,7 @@ $itunes_summary = 'Description'; // these are all plain text
 $itunes_image = 'http://example.com/image.jpg'; // url
 $itunes_category = 'Music';
 
+
 /* nothing to configure below here */ 
 
 $json_url = 'http://new.official.fm/feed/projects/' . $source_user_id .'.json'; 
@@ -66,7 +67,7 @@ if (!$my_json_o->track_ids) {
 
 /* write out the outer shell, channel, globals */ 
 $now = date("D, d M Y H:i:s T");
-$output = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+$output = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>
 	<rss version=\"2.0\" xmlns:itunes=\"http://www.itunes.com/dtds/podcast-1.0.dtd\"
 		 xmlns:atom=\"http://www.w3.org/2005/Atom\">	
 	<channel>
@@ -103,7 +104,7 @@ $output = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
  * location
  */ 
 foreach ($my_json_o->tracks as $track) {	
-	$item_url = $track->mp3_url;
+	$item_url = $my_install_url .'getfile.mp3?trackid='. $track->id;
 	$full_item_url = get_location($track->permalink . '/file'); 
 	$large_photo = $track->picture->urls->large; 
 	$item_size = get_size($full_item_url);
@@ -118,7 +119,7 @@ foreach ($my_json_o->tracks as $track) {
 			<link>$track->permalink</link>
 			<description>$item_description</description>
 			<itunes:image href=\"$large_photo\" />
-			<enclosure url=\"$full_item_url\" length=\"$item_size\" type=\"audio/mpeg\" />
+			<enclosure url=\"$item_url\" length=\"$item_size\" type=\"audio/mpeg\" />
 			<guid isPermaLink=\"true\">$track->permalink</guid>
 		</item>";
 }
