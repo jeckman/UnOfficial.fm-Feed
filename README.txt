@@ -20,10 +20,7 @@ Two scripts are provided:
   unofficial.php <- outputs a feed usable by most pod-catcher clients
   unofficial_itunes.php <- outputs a feed usable by iTunes
 
-iTunes requires that enclosure urls end in .mp3 so the file has to be 
-redirected through getfile.php 	
-
-That should output RSS directly to the screen. 
+Loading either of these in a web browser should output RSS directly. 
 
 Once that's working well, configure a cron job to output the rss to a file:
 
@@ -39,7 +36,24 @@ Then configure podcatcher clients to point at the feed.xml
 
 Set the cronjob to the desired frequency - every time it runs, it will
 overwrite the feed.xml with new content. 
+  
+NOTE ON ITUNES FEED:  
+iTunes requires that enclosure urls end in .mp3 so the file has to be 
+redirected through getfile.php. 
 
+This means that you must also map getfile.mp3 to getfile.php - this is a
+php file which will return (via a redirect) the actual path to the enclosure at
+full resolution (not the lofi.mp3 in the JSON feed). 
 
+Example entry in .htaccess for doing that:
 
+  # Map getfile.mp3 to getfile.php
+  RewriteEngine On
+  RewriteRule ^getfile.mp3$ getfile.php
 
+What this does is allow the feed to point to getfile.mp3?track_id=213
+but have the webserver serve getfile.php instead. 
+
+Enjoy!
+
+John
