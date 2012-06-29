@@ -28,7 +28,7 @@
 
 /* To find the "source_user_id", load the official.fm page of the 
  * account you are interested in, view source of that page, and look for the 
- * .json file - for example: http://new.official.fm/feed/projects/6CaZ.json
+ * .json file - for example: http://new.official.fm/feed/playlists/6CaZ.json
  * Enter just the unique part, for example: 6CaZ
  */
 $source_user_id = '6CaZ';  //user_id at official.fm whose tracks we want
@@ -53,7 +53,7 @@ $itunes_category = 'Music';
 
 /* nothing to configure below here */ 
 
-$json_url = 'http://new.official.fm/feed/projects/' . $source_user_id .'.json'; 
+$json_url = 'http://new.official.fm/feed/playlists/' . $source_user_id .'.json'; 
 	//echo 'Json url was ' . $json_url .'<br>';
 if ($rs = curlGet($json_url)){
 	//print_r($rs); 
