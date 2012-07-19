@@ -52,7 +52,7 @@ $itunes_category = 'Music';
 
 /* nothing to configure below here */ 
 
-$json_url = 'http://new.official.fm/feed/playlists/' . $source_user_id .'.json'; 
+$json_url = 'http://official.fm/feed/playlists/' . $source_user_id .'.json'; 
 	//echo 'Json url was ' . $json_url .'<br>';
 if ($rs = curlGet($json_url)){
 	//print_r($rs); 
