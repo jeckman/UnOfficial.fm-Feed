@@ -8,7 +8,7 @@ official.fm to create an iTunes-compatible RSS feed, including enclosures.
 
 To find the "source_user_id" as above, load the official.fm page of the 
 account you are interested in, view source of that page, and look for the 
-.json file - for example: http://new.official.fm/feed/projects/6CaZ.json
+.json file - for example: http://official.fm/feed/projects/6CaZ.json
 
 This .json file provides access to the tracks for this user as a JSON feed
 (JavaScript Object Notation) which unofficial.php knows how to read
