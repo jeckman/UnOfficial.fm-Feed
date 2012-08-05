@@ -194,7 +194,7 @@ function get_description($url) {
 	$dom = new DOMDocument();
 	@$dom->loadHTML($fullpage);
 	$xpath = new DOMXPath($dom); 
-	$tags = $xpath->query('//div[@class="description"]');
+	$tags = $xpath->query('//div[@class="info-description-body"]');
 	foreach ($tags as $tag) {
 		$my_description .= (trim($tag->nodeValue));
 	}	
