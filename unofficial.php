@@ -104,7 +104,7 @@ $output = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
  */ 
 foreach ($my_json_o->tracks as $track) {	
 	$item_url = $track->mp3_url;
-	$full_item_url = get_location($track->permalink . '/file'); 
+	$full_item_url = htmlentities(get_location($track->permalink . '/file'));
 	$large_photo = $track->picture->urls->large; 
 	$item_size = get_size($full_item_url);
 	$item_description = htmlspecialchars(get_description($track->permalink),ENT_QUOTES,'UTF-8');
