@@ -190,6 +190,7 @@ function get_size($url) {
 }
 
 function get_description($url) {
+	$my_description = '';
 	$fullpage = curlGet($url);
 	$dom = new DOMDocument();
 	@$dom->loadHTML($fullpage);
